@@ -36,4 +36,29 @@ describe('UserService', () => {
       expect(resultado).toBeNull();
     });
   });
+
+  describe('deactivateUser', () => {
+    test('deve desativar usuário comum e retornar true', () => {
+      const usuario = userService.createUser('Comum', 'comum@email.com', 30);
+
+      const resultado = userService.deactivateUser(usuario.id);
+
+      expect(resultado).toBe(true);
+      expect(userService.getUserById(usuario.id).status).toBe('inativo');
+    });
+
+    test('deve recusar desativação de admin e retornar false', () => {
+      const admin = userService.createUser('Admin', 'admin@email.com', 40, true);
+
+      const resultado = userService.deactivateUser(admin.id);
+
+      expect(resultado).toBe(false);
+      expect(userService.getUserById(admin.id).status).toBe('ativo');
+    });
+
+    test('deve retornar false para id inexistente', () => {
+      const resultado = userService.deactivateUser('id-inexistente');
+      expect(resultado).toBe(false);
+    });
+  });
 });
