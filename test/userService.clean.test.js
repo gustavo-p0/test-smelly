@@ -20,6 +20,18 @@ describe('UserService', () => {
       expect(usuario.nome).toBe(nome);
       expect(usuario.status).toBe('ativo');
     });
+
+    test('deve lançar erro ao criar usuário menor de idade', () => {
+      expect(() => {
+        userService.createUser('Menor', 'menor@email.com', 17);
+      }).toThrow('O usuário deve ser maior de idade.');
+    });
+
+    test('deve lançar erro quando nome está ausente', () => {
+      expect(() => {
+        userService.createUser('', 'email@email.com', 25);
+      }).toThrow('Nome, email e idade são obrigatórios.');
+    });
   });
 
   describe('getUserById', () => {
