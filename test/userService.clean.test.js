@@ -73,4 +73,15 @@ describe('UserService', () => {
       expect(resultado).toBe(false);
     });
   });
+
+  describe('generateUserReport', () => {
+    test('deve incluir o nome do usuário no relatório', () => {
+      userService.createUser('Alice', 'alice@email.com', 28);
+
+      const relatorio = userService.generateUserReport();
+
+      expect(relatorio).toContain('Alice');
+      expect(relatorio).toContain('ativo');
+    });
+  });
 });
