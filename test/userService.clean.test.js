@@ -83,5 +83,10 @@ describe('UserService', () => {
       expect(relatorio).toContain('Alice');
       expect(relatorio).toContain('ativo');
     });
+
+    test('deve retornar mensagem quando não há usuários', () => {
+      const relatorio = userService.generateUserReport();
+      expect(relatorio).toContain('Nenhum usuário cadastrado');
+    });
   });
 });
